@@ -26,14 +26,26 @@ export class PokemonService {
     }
   }
 
-  async findAll() {
-    const pokemons = await this.pokemonModel.find();
+  async createMany(pokemonList: CreatePokemonDto[]) {
+    try {
+      const createdPokemonList = await this.pokemonModel.insertMany(
+        pokemonList,
+      );
 
-    if (!pokemons) {
-      throw new NotFoundException(`No pokemons found`);
+      return createdPokemonList;
+    } catch (error) {
+      new PokemonHandleExceptions(error).handle();
+    }
+  }
+
+  async findAll() {
+    const pokemonList = await this.pokemonModel.find();
+
+    if (!pokemonList) {
+      throw new NotFoundException(`No pokemon found`);
     }
 
-    return pokemons;
+    return pokemonList;
   }
 
   async findOne(term: string) {
@@ -81,6 +93,28 @@ export class PokemonService {
 
     return {
       message: `Pokemon with ID "${id}" successfully deleted`,
+    };
+  }
+
+  async removeMany(ids: string[]) {
+    const { deletedCount } = await this.pokemonModel.deleteMany({
+      _id: { $in: ids },
+    });
+
+    if (deletedCount === 0) {
+      throw new BadRequestException(`No pokemon found`);
+    }
+
+    return {
+      message: `${deletedCount} pokemon successfully deleted`,
+    };
+  }
+
+  async removeAll() {
+    const { deletedCount } = await this.pokemonModel.deleteMany({});
+
+    return {
+      message: `${deletedCount} pokemon successfully deleted`,
     };
   }
 }
