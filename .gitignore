@@ -39,3 +39,7 @@ db
 
 #.husky
 .husky/_
+
+#lock files
+package-lock.json
+yarn.lock
