@@ -39,6 +39,8 @@ export class PokemonService {
   async findOne(term: string) {
     let pokemon: Pokemon;
 
+    console.log({ term });
+
     if (!isNaN(+term)) pokemon = await this.pokemonModel.findOne({ no: term });
 
     if (!pokemon && isValidObjectId(term))
