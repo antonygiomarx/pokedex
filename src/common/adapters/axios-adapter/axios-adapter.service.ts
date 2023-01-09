@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 
 import { HttpAdapter, RequestConfig } from '../interfaces/adapter.interface';
+import { AxiosResponse } from 'axios';
 
 @Injectable()
 export class AxiosAdapterService implements HttpAdapter {
@@ -15,17 +16,31 @@ export class AxiosAdapterService implements HttpAdapter {
       data,
     };
   }
-  async post<T>(url: string, data?: unknown, config?: RequestConfig) {
+  async post<T>(
+    url: string,
+    data?: unknown,
+    config?: RequestConfig,
+  ): Promise<AxiosResponse> {
     return await this.http.post<T>(url, data, config).toPromise();
   }
 
-  async put<T>(url: string, data?: unknown, config?: RequestConfig) {
+  async put<T>(
+    url: string,
+    data?: unknown,
+    config?: RequestConfig,
+  ): Promise<AxiosResponse> {
     return this.http.put<T>(url, data, config).toPromise();
   }
-  delete<T>(url: string, config?: RequestConfig) {
+
+  async delete<T>(url: string, config?: RequestConfig): Promise<AxiosResponse> {
     return this.http.delete<T>(url, config).toPromise();
   }
-  async patch<T>(url: string, data?: unknown, config?: RequestConfig) {
+
+  async patch<T>(
+    url: string,
+    data?: unknown,
+    config?: RequestConfig,
+  ): Promise<AxiosResponse> {
     return this.http.patch<T>(url, data, config).toPromise();
   }
 }
