@@ -23,7 +23,25 @@ npm i -g @nestjs/cli
 docker-compose up -d
 ```
 
+5. Clonar el archivo ```.env.example``` y renombrarlo a ```.env```	
+
+6. Correr el proyecto
+
+```
+yarn start:dev
+```
+
+7. Reconstruir la base de datos
+
+```
+http://localhost:3000/api/seed
+```
+
+
+
 ## Stack usado
 
-- MongoDB
-- Nest
+* [NestJS](https://nestjs.com/) - Framework de NodeJS
+* [MongoDB](https://www.mongodb.com/) - Base de datos
+* [Docker](https://www.docker.com/) - Contenedores
+  
