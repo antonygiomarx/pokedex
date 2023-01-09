@@ -8,7 +8,7 @@ import { AxiosResponse } from 'axios';
 export class AxiosAdapterService implements HttpAdapter {
   constructor(private readonly http: HttpService) {}
 
-  async get<T>(url: string, config?: Record<string, unknown>) {
+  async get<T>(url: string, config?: RequestConfig) {
     const { data, status } = await this.http.get<T>(url, config).toPromise();
 
     return {
@@ -20,7 +20,7 @@ export class AxiosAdapterService implements HttpAdapter {
     url: string,
     data?: unknown,
     config?: RequestConfig,
-  ): Promise<AxiosResponse> {
+  ): Promise<AxiosResponse<T>> {
     return await this.http.post<T>(url, data, config).toPromise();
   }
 
@@ -28,7 +28,7 @@ export class AxiosAdapterService implements HttpAdapter {
     url: string,
     data?: unknown,
     config?: RequestConfig,
-  ): Promise<AxiosResponse> {
+  ): Promise<AxiosResponse<T>> {
     return this.http.put<T>(url, data, config).toPromise();
   }
 
@@ -40,7 +40,7 @@ export class AxiosAdapterService implements HttpAdapter {
     url: string,
     data?: unknown,
     config?: RequestConfig,
-  ): Promise<AxiosResponse> {
+  ): Promise<AxiosResponse<T>> {
     return this.http.patch<T>(url, data, config).toPromise();
   }
 }

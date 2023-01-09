@@ -17,7 +17,12 @@ export class SeedService {
       await this.pokemonService.removeAll();
 
       const { data } = await this.http.get<PokeAPIResponse>(
-        `${this.url}?limit=1000&offset=0`,
+        `${this.url}?limit=100&offset=0`,
+        {
+          headers: {
+            'Accept-Encoding': 'compress',
+          },
+        },
       );
 
       const pokemonList = data.results.map((pokemon) => ({
