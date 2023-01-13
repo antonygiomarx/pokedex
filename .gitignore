@@ -47,3 +47,4 @@ yarn.lock
 
 #env
 .env
+.env.prod
